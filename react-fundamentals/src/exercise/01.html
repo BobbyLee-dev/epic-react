@@ -16,15 +16,16 @@
 <!--   📜 https://developer.mozilla.org/en-US/docs/Web/API/ParentNode/append -->
 <body>
   <script type="module">
+    const bodyEl = document.querySelector('body')
+    const rootEl = document.createElement('div')
     const myElement = document.createElement('div')
+
     myElement.classList.add('container')
     myElement.textContent = 'Hello World'
 
-    const rootEl = document.createElement('div')
     rootEl.id = 'root'
     rootEl.appendChild(myElement)
 
-    const bodyEl = document.querySelector('body')
     bodyEl.appendChild(rootEl)
   </script>
 </body>
