@@ -11,10 +11,35 @@
 
     // 🐨 use that function in place of the divs below with:
     // 💰 {message({children: 'Hello World'})} {message({children: 'Goodbye World'})}
+    // const element = (
+    //   <div className="container">
+    //     <div className="message">Hello World</div>
+    //     <div className="message">Goodbye World</div>
+    //   </div>
+    // )
+
+    function message({children, className}) {
+      return <div className={className}>{children}</div>
+    }
+
+    // const element = (
+    //   <div className="container">
+    //     {message({children: 'Hello World!lol', className: 'test'})}
+    //     {message({children: 'Goodby World!lol', className: 'test2'})}
+    //   </div>
+    // )
+
+    // Extra 1
     const element = (
       <div className="container">
-        <div className="message">Hello World</div>
-        <div className="message">Goodbye World</div>
+        {React.createElement(message, {
+          children: 'extra1',
+          className: 'extra1',
+        })}
+        {React.createElement(message, {
+          children: 'extra1Goodbuy',
+          className: 'extra1',
+        })}
       </div>
     )
 
