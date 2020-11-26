@@ -19,12 +19,28 @@
     //   </div>
     // )
 
+    // const PropTypes = {
+    //   string(props, propName, componentName) {
+    //     const type = typeof props[propName]
+    //     if (type !== 'string') {
+    //       return new Error(
+    //         `Hey, the component ${componentName} needs the prop ${propName} to be a string not a ${type}.`,
+    //       )
+    //     }
+    //   },
+    // }
+
     function Message({subject, greeting}) {
       return (
         <div className="message">
           {greeting}, {subject}
         </div>
       )
+    }
+
+    Message.propTypes = {
+      subject: PropTypes.string.isRequired,
+      greeting: PropTypes.string.isRequired,
     }
 
     // const element = (
@@ -35,10 +51,10 @@
     // )
 
     const element = (
-      <div className="container">
+      <>
         <Message greeting="Hello" subject="World" />
         <Message greeting="Goodbye" subject="World" />
-      </div>
+      </>
     )
 
     // 💯 This is only the first step to making actual React components. The rest is in the extra credit!
