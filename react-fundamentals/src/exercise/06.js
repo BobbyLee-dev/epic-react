@@ -48,7 +48,6 @@ function UsernameForm({onSubmitUsername}) {
           onChange={handleChange}
           ref={inputEl}
           id="userInput"
-          name="userInput"
           type="text"
         />
       </div>
