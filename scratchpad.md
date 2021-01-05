@@ -1,2 +1,1 @@
-- get tests running - look over custom components again - prop types
-- destructring
+
