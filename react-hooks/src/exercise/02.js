@@ -3,23 +3,40 @@
 
 import * as React from 'react'
 
-function Greeting({initialName = ''}) {
+function Greeting({initialName = '', initialTestName = ''}) {
+  const inputEl = React.useRef(null)
+  const testInputEl = React.useRef(null)
   const [name, setName] = React.useState(
     () => window.localStorage.getItem('name') || initialName,
   )
 
+  const [testname, setTestName] = React.useState(
+    () => window.localStorage.getItem('testname') || initialTestName,
+  )
+
   React.useEffect(() => {
     window.localStorage.setItem('name', name)
+    window.localStorage.setItem('testname', testname)
   })
 
   function handleChange(event) {
-    setName(event.target.value)
+    console.log(inputEl)
+    setName(inputEl.current.value)
+    setTestName(event.target.value)
   }
   return (
     <div>
       <form>
         <label htmlFor="name">Name: </label>
-        <input value={name} onChange={handleChange} id="name" />
+        <input ref={inputEl} value={name} onChange={handleChange} id="name" />
+        <label htmlFor="testname">tesetName: </label>
+        <input
+          ref={testInputEl}
+          value={testname}
+          onChange={handleChange}
+          id="testname"
+          value={testname}
+        />
       </form>
       {name ? <strong>Hello {name}</strong> : 'Please type your name'}
     </div>
