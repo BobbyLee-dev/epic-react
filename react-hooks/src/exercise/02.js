@@ -2,7 +2,18 @@
 // http://localhost:3000/isolated/exercise/02.js
 
 import * as React from 'react'
-import useLocalStorageState from './use-local-storage-state'
+
+function useLocalStorageState(key, initialState = '') {
+  const [state, setState] = React.useState(
+    () => window.localStorage.getItem(key) || initialState,
+  )
+
+  React.useEffect(() => {
+    window.localStorage.setItem(key, state)
+  }, [key, state])
+
+  return [state, setState]
+}
 
 function Greeting({initialName = ''}, test) {
   const [name, setName] = useLocalStorageState('name', initialName)
