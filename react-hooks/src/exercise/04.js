@@ -8,22 +8,22 @@ function Board() {
   const [squares, setSquares] = React.useState(Array(9).fill(null))
 
   const nextValue = calculateNextValue(squares)
-  console.log(nextValue)
   const winner = calculateWinner(squares)
-  console.log(winner)
-  const status = calculateStatus((winner, squares, nextValue))
-  console.log(status)
+  const status = calculateStatus(winner, squares, nextValue)
+
+  // console.log(status)
 
   function selectSquare(square) {
+    // Winner or if the square already has a value - is not null.
     if (winner || squares[square]) {
-      console.log('there is a winner or this square already exists')
+      // console.log('there is a winner or this square already exists')
       return
     }
 
     // 🦉 It's typically a bad idea to mutate or directly change state in React.
     // Doing so can lead to subtle bugs that can easily slip into production.
     const squaresCopy = [...squares]
-    squaresCopy[square] = nextValue
+    squaresCopy[square] = nextValue // set to X or O
     setSquares(squaresCopy)
   }
 
@@ -42,7 +42,7 @@ function Board() {
   return (
     <div>
       {/* 🐨 put the status in the div below */}
-      <div className="status">STATUS</div>
+      <div className="status">{status}</div>
       <div className="board-row">
         {renderSquare(0)}
         {renderSquare(1)}
@@ -77,6 +77,7 @@ function Game() {
 
 // eslint-disable-next-line no-unused-vars
 function calculateStatus(winner, squares, nextValue) {
+  console.log(nextValue)
   return winner
     ? `Winner: ${winner}`
     : squares.every(Boolean)
@@ -106,6 +107,7 @@ function calculateWinner(squares) {
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i]
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+      console.log('thre is a winner')
       return squares[a]
     }
   }
