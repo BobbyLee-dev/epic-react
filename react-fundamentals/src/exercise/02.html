@@ -11,15 +11,20 @@
     const rootElement = document.getElementById('root')
 
     const words = ['Hello', 'World lol']
-    const elements = words.map(word => {
-      return React.createElement('span', {children: word})
-    })
+
+    const getElements = function (items) {
+      return items.map((item, index) => {
+        return React.createElement('span', {
+          children: item,
+          key: index.toString(),
+        })
+      })
+    }
 
     const container = React.createElement('div', {
       className: 'container1',
-      children: elements,
+      children: getElements(words),
     })
-    console.log(container)
 
     ReactDOM.render(container, rootElement)
   </script>
