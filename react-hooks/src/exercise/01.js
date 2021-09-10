@@ -3,27 +3,31 @@
 
 import * as React from 'react'
 
-function Greeting({initalName = ''}) {
-  const [name, setName] = React.useState(initalName)
-
-  function handleChange(event) {
-    // 🐨 update the name here based on event.target.value
-    setName(event.target.value)
+function Greeting({initialName = ''}) {
+  const [name, setName] = React.useState(initialName)
+  function handleChange(e) {
+    setName(e.target.value)
   }
 
   return (
     <div>
       <form>
-        <label htmlFor="name">Name: </label>
-        <input value={name} onChange={handleChange} id="name" />
+        <label for="name">Name:</label>
+        <input id="name" onChange={handleChange} value={name}></input>
       </form>
-      {name ? <strong>Hello {name}</strong> : 'Please type your name'}
+      {name !== '' ? (
+        <div>
+          Hi <span style={{color: 'red'}}>{name}</span>
+        </div>
+      ) : (
+        ''
+      )}
     </div>
   )
 }
 
 function App() {
-  return <Greeting initalName="Bobby" />
+  return <Greeting initialName="Bobby" />
 }
 
 export default App

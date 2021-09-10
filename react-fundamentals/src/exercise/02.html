@@ -10,7 +10,7 @@
   <script type="module">
     const rootElement = document.getElementById('root')
 
-    const words = ['Hello', 'World lol']
+    const words = ['Hello', 'World lol!']
 
     const getElements = function (items) {
       return items.map((item, index) => {
@@ -21,10 +21,14 @@
       })
     }
 
-    const container = React.createElement('div', {
-      className: 'container1',
-      children: getElements(words),
-    })
+    const container = React.createElement(
+      'div',
+      {
+        className: 'container1',
+        // children: getElements(words),
+      },
+      getElements(words),
+    )
 
     ReactDOM.render(container, rootElement)
   </script>

@@ -1,6 +1,3 @@
-// Basic Forms
-// http://localhost:3000/isolated/exercise/06.js
-
 import * as React from 'react'
 
 function UsernameForm({onSubmitUsername}) {
@@ -13,7 +10,9 @@ function UsernameForm({onSubmitUsername}) {
   }
 
   const handleChange = event => {
-    const {value} = inputEl.current
+    // const {value} = inputEl.current
+    const {value, type} = inputEl.current
+    console.log(value, type)
     setInputValue(value.toLowerCase())
   }
 
