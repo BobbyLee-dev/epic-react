@@ -2,13 +2,11 @@
 // http://localhost:3000/isolated/exercise/04.js
 
 import * as React from 'react'
+import {useLocalStorageState} from '../utils'
 
 function Board() {
   // 🐨 squares is the state for this component. Add useState for squares
-  const [squares, setSquares] = React.useState(() => {
-    return window.localStorage.getItem('squares') || Array(9).fill(null)
-  })
-  console.log(squares)
+  const [squares, setSquares] = useLocalStorageState('squares112', Array(9).fill(null))
   // 🐨 We'll need the following bits of derived state:
   // - nextValue ('X' or 'O')
   const nextValue = calculateNextValue(squares)
@@ -18,8 +16,9 @@ function Board() {
   const status = calculateStatus(winner, squares, nextValue)
 
   React.useEffect(() => {
-    window.localStorage.setItem('squares', squares);
+    window.localStorage.setItem('squares', JSON.stringify(squares));
   })
+
   // This is the function your square click handler will call. `square` should
   // be an index. So if they click the center square, this will be `4`.
   function selectSquare(square) {
@@ -103,7 +102,6 @@ function calculateStatus(winner, squares, nextValue) {
 
 // eslint-disable-next-line no-unused-vars
 function calculateNextValue(squares) {
-  console.log(squares)
   return squares.filter(Boolean).length % 2 === 0 ? 'X' : 'O'
 }
 
