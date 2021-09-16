@@ -5,10 +5,9 @@ import * as React from 'react'
 import {useLocalStorageState} from '../utils'
 
 function Board({squares, onClick}) {
-console.log(onClick)
   function renderSquare(i) {
     return (
-      <button className="square" onClick={onClick}>
+      <button className="square" onClick={() => onClick(i)}>
         {squares[i]}
       </button>
     )
@@ -38,19 +37,24 @@ console.log(onClick)
 function Game() {
 
   const [squares, setSquares] = useLocalStorageState('squares', Array(9).fill(null))
-  const [currentSquares, setCurrentSquares] = []
-  
+  const nextValue = calculateNextValue(squares)
+  const winner = calculateWinner(squares)
+  const status = calculateStatus(winner, squares, nextValue)
+
+  function selectSquare(square) {
+    if(squares[square] || winner) {
+      return;
+    }
+    const squaresCopy = [...squares]
+    squaresCopy[square] = nextValue
+    setSquares(squaresCopy)
+  }
+
   function restart() {
     setSquares(Array(9).fill(null))
   }
-
-  function selectSquare(e) {
-    console.log(e)
-  }
-  const nextValue = calculateNextValue(squares)
-  const winner = calculateWinner(squares)
-
-  const status = calculateStatus(winner, squares, nextValue)
+  
+  const moves = squares.map(item => <li>{item}</li>)
 
   return (
     <div className="game">
@@ -62,6 +66,8 @@ function Game() {
       </div>
       <div className="game-info">
         <div className="status">{status}</div>
+        <ol>{moves}</ol>
+        <div>hi</div>
       </div>
     </div>
   )
