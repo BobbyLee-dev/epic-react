@@ -20,6 +20,7 @@ function Board() {
   }
 
   function restart() {
+    setSquares(Array(9).fill(null))
   }
 
   function renderSquare(i) {
@@ -59,11 +60,15 @@ function calculateStatus(winner, squares, nextValue) {
 
 // eslint-disable-next-line no-unused-vars
 function calculateNextValue(squares) {
-  return 'X'
+  return squares.filter(item => item === null).length % 2 === 0 ? 'O' : 'X'
 }
 
 // eslint-disable-next-line no-unused-vars
 function calculateWinner(squares) {
+  console.log(squares)
+  const winningRows = [
+    [0,1,2]
+  ]
 }
 
 function App() {
