@@ -11,16 +11,12 @@ function Board() {
   const status = calculateStatus(winner, squares, nextValue)
 
   function selectSquare(square) {
-    if(squares[square]) {
+    if(squares[square] || winner) {
       return;
     }
     const squaresCopy = [...squares]
     squaresCopy[square] = nextValue
     setSquares(squaresCopy)
-  }
-
-  function restart() {
-    setSquares(Array(9).fill(null))
   }
 
   function renderSquare(i) {
@@ -45,6 +41,7 @@ function Board() {
         {renderSquare(7)}
         {renderSquare(8)}
       </div>
+      <button onClick={() => setSquares(Array(9).fill(null))}>Restart</button>
     </div>
   )
 
@@ -65,10 +62,24 @@ function calculateNextValue(squares) {
 
 // eslint-disable-next-line no-unused-vars
 function calculateWinner(squares) {
-  console.log(squares)
   const winningRows = [
-    [0,1,2]
+    [0,1,2],
+    [3,4,5],
+    [6,7,8],
+    [0,3,6],
+    [1,4,7],
+    [2,5,8],
+    [0,4,8],
+    [2,4,6]
   ]
+ const hasWinner = winningRows.filter(row => {
+    const [a,b,c] = row;
+    if(squares[a] && squares[a] === squares[b] && squares[b] === squares[c]) {
+      return row;
+    }
+    return;
+  })
+  return hasWinner.length > 0 ? true : false;
 }
 
 function App() {
