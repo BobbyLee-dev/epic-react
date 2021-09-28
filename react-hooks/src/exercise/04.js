@@ -1,11 +1,13 @@
 // useState: tic tac toe
 // http://localhost:3000/isolated/exercise/04.js
 
+import {util} from 'prettier'
 import * as React from 'react'
-
+import {useLocalStorageState} from '../utils'
 function Board() {
-  const [squares, setSquares] = React.useState(Array(9).fill(null))
-
+  const [squares, setSquares] = useLocalStorageState('squares', () => Array(9).fill(null))
+  const [squaresHistory, setSquaresHistory] = useLocalStorageState('squaresHistory', [])
+  const [currentStep, setCurrentStep] = useLocalStorageState('step', squaresHistory.length)
   const nextValue = calculateNextValue(squares)
   const winner = calculateWinner(squares)
   const status = calculateStatus(winner, squares, nextValue)
@@ -25,7 +27,7 @@ function Board() {
   
   return(
     <div className="board">
-      <div className="status">Status</div>
+      <div className="status">{status}</div>
       <div className="board-row">
         {renderSquare(0)}
         {renderSquare(1)}
@@ -53,6 +55,10 @@ function Game() {
 
 // eslint-disable-next-line no-unused-vars
 function calculateStatus(winner, squares, nextValue) {
+  if(winner) {
+    return `Winner: ${nextValue === 'X' ? 'O' : 'X'}`
+  }
+  return squares.some(square => square === null) ? `Next Player: ${nextValue}` : `Scratch: Cat's game`
 }
 
 // eslint-disable-next-line no-unused-vars
